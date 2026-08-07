@@ -1,5 +1,6 @@
 /* ============================================
    Neo Academy — Design System
+
    Brand Palette:
    Navy       #20374C
    Deep Blue  #224F67
@@ -8,25 +9,29 @@
    White      #FFFFFF
 ============================================ */
 
+/* ============================================
+   DESIGN TOKENS
+============================================ */
+
 :root {
-  /* ---------- Brand Colors ---------- */
+  /* Brand Colors */
   --navy: #20374c;
   --deep-blue: #224f67;
   --blue: #266f92;
   --sky: #10afe3;
 
-  /* ---------- Backgrounds ---------- */
+  /* Backgrounds */
   --bg: #f7fafc;
   --bg-raised: #ffffff;
   --bg-blue: #eef7fb;
   --bg-dark: #20374c;
 
-  /* ---------- Text ---------- */
+  /* Text */
   --ink: #20374c;
   --ink-soft: #5c6f7c;
   --white: #ffffff;
 
-  /* ---------- UI ---------- */
+  /* UI */
   --primary: #266f92;
   --primary-deep: #20374c;
   --primary-light: #e6f5fb;
@@ -43,12 +48,14 @@
   --shadow: 0 10px 30px rgba(32, 55, 76, 0.08);
   --shadow-hover: 0 16px 38px rgba(32, 55, 76, 0.14);
 
-  /* ---------- Typography ---------- */
+  /* Typography */
   --font-display: "Tajawal", "Segoe UI", Tahoma, sans-serif;
   --font-body: "Tajawal", "Segoe UI", Tahoma, sans-serif;
 }
 
-/* ---------- Reset ---------- */
+/* ============================================
+   RESET
+============================================ */
 
 * {
   box-sizing: border-box;
@@ -87,7 +94,9 @@ select {
   font-family: inherit;
 }
 
-/* ---------- Container ---------- */
+/* ============================================
+   CONTAINER
+============================================ */
 
 .container {
   max-width: 1120px;
@@ -119,7 +128,7 @@ select {
   padding-bottom: 14px;
 }
 
-/* ---------- Brand ---------- */
+/* Brand */
 
 .brand {
   display: flex;
@@ -139,7 +148,7 @@ select {
   flex-shrink: 0;
 }
 
-/* ---------- Navigation ---------- */
+/* Navigation */
 
 .main-nav {
   display: flex;
@@ -208,7 +217,7 @@ select {
   transform: translateY(0);
 }
 
-/* ---------- Primary ---------- */
+/* Primary */
 
 .btn-primary {
   background: linear-gradient(
@@ -232,7 +241,7 @@ select {
   box-shadow: 0 12px 28px rgba(32, 55, 76, 0.25);
 }
 
-/* ---------- Sky ---------- */
+/* Sky */
 
 .btn-gold {
   background: var(--sky);
@@ -245,7 +254,7 @@ select {
   background: #0c9dcd;
 }
 
-/* ---------- Outline ---------- */
+/* Outline */
 
 .btn-outline {
   background: transparent;
@@ -260,7 +269,7 @@ select {
   border-color: var(--sky);
 }
 
-/* ---------- WhatsApp ---------- */
+/* WhatsApp */
 
 .btn-whatsapp {
   background: #1f9d68;
@@ -307,7 +316,7 @@ select {
   align-items: center;
 }
 
-/* ---------- Eyebrow ---------- */
+/* Eyebrow */
 
 .eyebrow {
   display: inline-flex;
@@ -339,7 +348,7 @@ select {
   box-shadow: 0 0 0 4px rgba(16, 175, 227, 0.12);
 }
 
-/* ---------- Main Heading ---------- */
+/* Main Heading */
 
 h1 {
   font-family: var(--font-display);
@@ -369,7 +378,7 @@ h1 {
   margin-bottom: 32px;
 }
 
-/* ---------- Hero Actions ---------- */
+/* Hero Actions */
 
 .hero-actions {
   display: flex;
@@ -786,4 +795,444 @@ section:nth-of-type(even) {
 }
 
 .wa-float svg {
-  width:
+  width: 20px;
+  height: 20px;
+}
+
+/* ============================================
+   COURSES PAGE
+============================================ */
+
+.course-detail {
+  background: var(--bg-raised);
+
+  border: 1px solid var(--line);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+  padding: 34px;
+
+  margin-bottom: 28px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.course-detail:hover {
+  transform: translateY(-3px);
+
+  box-shadow: var(--shadow-hover);
+}
+
+.course-detail-head {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 20px;
+
+  flex-wrap: wrap;
+
+  margin-bottom: 18px;
+}
+
+.course-detail-head h3 {
+  font-family: var(--font-display);
+
+  font-size: 1.5rem;
+
+  font-weight: 900;
+
+  color: var(--primary-deep);
+
+  margin: 0 0 6px;
+}
+
+.course-meta {
+  display: flex;
+
+  gap: 14px;
+
+  flex-wrap: wrap;
+
+  font-size: 0.88rem;
+
+  color: var(--ink-soft);
+
+  margin-bottom: 18px;
+}
+
+.course-meta span {
+  background: var(--primary-light);
+
+  padding: 4px 12px;
+
+  border-radius: 999px;
+}
+
+.course-columns {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 24px;
+}
+
+.course-columns h4 {
+  font-family: var(--font-display);
+
+  font-size: 1rem;
+
+  font-weight: 900;
+
+  color: var(--primary-deep);
+
+  margin: 0 0 10px;
+}
+
+.course-columns ul {
+  margin: 0;
+
+  padding-inline-start: 20px;
+
+  color: var(--ink-soft);
+}
+
+.course-columns ul li {
+  margin-bottom: 8px;
+}
+
+.course-columns ul li::marker {
+  color: var(--sky);
+}
+
+/* ============================================
+   STUDENT AREA
+============================================ */
+
+.gate-wrap {
+  max-width: 420px;
+
+  margin: 60px auto;
+
+  background: var(--bg-raised);
+
+  border: 1px solid var(--line);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+  padding: 36px;
+
+  text-align: center;
+}
+
+.gate-wrap h2 {
+  font-family: var(--font-display);
+
+  font-weight: 900;
+
+  color: var(--primary-deep);
+
+  margin-top: 0;
+}
+
+.gate-wrap input {
+  width: 100%;
+
+  padding: 13px 16px;
+
+  border-radius: var(--radius-small);
+
+  border: 1px solid var(--line);
+
+  font-size: 1rem;
+
+  margin: 16px 0;
+
+  font-family: var(--font-body);
+
+  direction: rtl;
+
+  text-align: right;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.gate-wrap input:focus {
+  border-color: var(--sky);
+
+  box-shadow:
+    0 0 0 3px rgba(16, 175, 227, 0.12);
+}
+
+.gate-wrap .btn {
+  width: 100%;
+
+  justify-content: center;
+}
+
+.gate-error {
+  color: var(--danger);
+
+  font-size: 0.9rem;
+
+  min-height: 20px;
+
+  margin-top: 6px;
+}
+
+.student-content {
+  display: none;
+}
+
+.student-content.is-visible {
+  display: block;
+}
+
+.lesson-card {
+  background: var(--bg-raised);
+
+  border: 1px solid var(--line);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+  padding: 22px;
+
+  margin-bottom: 22px;
+}
+
+.lesson-card h3 {
+  font-family: var(--font-display);
+
+  font-weight: 900;
+
+  color: var(--primary-deep);
+
+  margin: 0 0 4px;
+}
+
+.lesson-card .lesson-note {
+  color: var(--ink-soft);
+
+  font-size: 0.9rem;
+
+  margin-bottom: 14px;
+}
+
+.video-frame {
+  position: relative;
+
+  padding-top: 56.25%;
+
+  border-radius: var(--radius-small);
+
+  overflow: hidden;
+
+  background: var(--navy);
+}
+
+.video-frame iframe {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  border: 0;
+}
+
+/* ============================================
+   CONTACT PAGE
+============================================ */
+
+.contact-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 28px;
+}
+
+.contact-card {
+  background: var(--bg-raised);
+
+  border: 1px solid var(--line);
+
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+
+  padding: 30px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow: var(--shadow-hover);
+}
+
+.contact-card h3 {
+  font-family: var(--font-display);
+
+  font-weight: 900;
+
+  color: var(--primary-deep);
+
+  margin: 0;
+}
+
+.contact-card p {
+  color: var(--ink-soft);
+
+  margin: 0;
+}
+
+/* ============================================
+   GENERAL FORM ELEMENTS
+============================================ */
+
+input,
+textarea,
+select {
+  border: 1px solid var(--line);
+
+  background: var(--white);
+
+  color: var(--ink);
+
+  border-radius: var(--radius-small);
+
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--sky);
+
+  box-shadow:
+    0 0 0 3px rgba(16, 175, 227, 0.12);
+}
+
+/* ============================================
+   RESPONSIVE — TABLET
+============================================ */
+
+@media (max-width: 860px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+
+    gap: 40px;
+  }
+
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .course-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .hero {
+    padding: 55px 0 40px;
+  }
+
+  section {
+    padding: 50px 0;
+  }
+}
+
+/* ============================================
+   RESPONSIVE — MOBILE
+============================================ */
+
+@media (max-width: 560px) {
+  .container {
+    padding: 0 18px;
+  }
+
+  .trust-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .program-card,
+  .course-detail,
+  .contact-card {
+    padding: 24px;
+  }
+
+  .wa-float {
+    bottom: 16px;
+
+    left: 16px;
+
+    padding: 12px 16px;
+
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY / REDUCED MOTION
+============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
