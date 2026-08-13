@@ -13,7 +13,7 @@
 
 <header class="site-header">
   <div class="container">
-    <a href="index.html" class="brand">
+    <a href="index.html" class="brand" aria-label="الرئيسية - Neo Academy">
       <img src="assets/neo-logo.jpg" alt="شعار Neo Academy" class="brand-mark">
       Neo Academy
     </a>
@@ -38,8 +38,22 @@
         <div class="contact-card">
           <h3>واتساب</h3>
           <p>أسرع طريقة للتواصل والحجز. ابعتلنا اسمك والكورس اللي مهتم بيه.</p>
-          <a href="https://wa.me/201000000000?text=عايز%20أحجز%20الجلسة%20المجانية%20في%20Neo%20Academy" class="btn btn-whatsapp" target="_blank" rel="noopener">
-            احجز عبر واتساب
+          <a href="https://wa.me/201042413201?text=عايز%20أحجز%20الجلسة%20المجانية%20في%20Neo%20Academy" class="btn btn-whatsapp" target="_blank" rel="noopener" aria-label="تواصل معنا على واتساب، الرقم الأساسي 01042413201">
+            تواصل معنا على واتساب (01042413201)
+          </a>
+          <a href="https://wa.me/201042430075?text=عايز%20أحجز%20الجلسة%20المجانية%20في%20Neo%20Academy" class="btn btn-whatsapp" target="_blank" rel="noopener" aria-label="رقم واتساب بديل 01042430075">
+            رقم بديل (01042430075)
+          </a>
+          <a href="tel:+201042413201" class="btn btn-outline" aria-label="اتصل مباشرة بالرقم 01042413201">
+            اتصال مباشر: 01042413201
+          </a>
+        </div>
+
+        <div class="contact-card">
+          <h3>العنوان (الفرع أوفلاين)</h3>
+          <p>24 ش الشهيد مصطفى رياض، متفرع من البطراوي بعباس، أمام جنينة مول — مدينة نصر، القاهرة.</p>
+          <a href="https://maps.app.goo.gl/xhikviryJgcuJ6JB6" class="btn btn-outline" target="_blank" rel="noopener" aria-label="افتحي موقع الأكاديمية على خرائط جوجل">
+            موقعنا على الخريطة
           </a>
         </div>
 
@@ -49,6 +63,41 @@
           <span class="btn btn-outline" style="pointer-events: none; opacity: .6;">قريبًا</span>
         </div>
       </div>
+
+      <form id="lead-form" class="lead-form-card" novalidate>
+        <h3>اطلب معاودة الاتصال</h3>
+        <p>املا بياناتك، والطلب هيتبعت لينا فورًا كرسالة واتساب جاهزة بكل تفاصيلك.</p>
+        <div class="lead-form-grid">
+          <div class="field field-full">
+            <label for="lead-name">الاسم الكامل</label>
+            <input type="text" id="lead-name" name="name" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="lead-phone">رقم الموبايل</label>
+            <input type="tel" id="lead-phone" name="phone" required autocomplete="tel" placeholder="01xxxxxxxxx">
+          </div>
+          <div class="field">
+            <label for="lead-email">البريد الإلكتروني (اختياري)</label>
+            <input type="email" id="lead-email" name="email" autocomplete="email">
+          </div>
+          <div class="field field-full">
+            <label for="lead-course">الكورس المهتم بيه</label>
+            <select id="lead-course" name="course" required>
+              <option value="" disabled selected>اختر كورس</option>
+              <option value="كورس اللغة الإنجليزية">كورس اللغة الإنجليزية</option>
+              <option value="دبلومة التسويق الرقمي">دبلومة التسويق الرقمي</option>
+              <option value="كورس الجرافيك ديزاين">كورس الجرافيك ديزاين</option>
+              <option value="مش متأكد/ة">مش متأكد/ة</option>
+            </select>
+          </div>
+          <div class="field field-full">
+            <label for="lead-message">رسالتك (اختياري)</label>
+            <textarea id="lead-message" name="message" placeholder="أي سؤال أو تفاصيل إضافية"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">إرسال الطلب</button>
+        <p class="form-note">بياناتك بتوصل مباشرة لفريق Neo Academy وهنتواصل معاك في أقرب وقت.</p>
+      </form>
     </div>
   </section>
 </main>
@@ -61,15 +110,22 @@
       <a href="student-area.html">منطقة الطلاب</a>
       <a href="contact.html">تواصل معنا</a>
     </div>
+    <div class="footer-meta">
+      <span>24 ش الشهيد مصطفى رياض، متفرع من البطراوي بعباس، أمام جنينة مول — مدينة نصر</span>
+      <a href="https://maps.app.goo.gl/xhikviryJgcuJ6JB6" target="_blank" rel="noopener">افتحي على الخريطة</a>
+      <a href="https://wa.me/201042413201" target="_blank" rel="noopener">01042413201</a>
+      <a href="https://wa.me/201042430075" target="_blank" rel="noopener">01042430075</a>
+    </div>
   </div>
 </footer>
 
-<a href="https://wa.me/201000000000" class="wa-float" target="_blank" rel="noopener">
+<a href="https://wa.me/201042413201" class="wa-float" target="_blank" rel="noopener" aria-label="تواصل معنا فورًا على واتساب">
   <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M16 3C9.4 3 4 8.4 4 15c0 2.4.7 4.6 1.9 6.5L4 29l7.7-1.8C13.4 28 14.7 28.3 16 28.3c6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.2 0-2.4-.2-3.5-.7l-.5-.2-4.6 1.1 1.1-4.5-.3-.5C7.4 18.1 6.7 16.6 6.7 15c0-5.1 4.2-9.3 9.3-9.3s9.3 4.2 9.3 9.3-4.2 9.3-9.3 9.3z"/>
   </svg>
   تواصل معنا
 </a>
 
+<script src="script.js"></script>
 </body>
 </html>
