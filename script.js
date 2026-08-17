@@ -96,18 +96,23 @@ function initLeadForm() {
 }
 
 async function sendLeadToCrm(lead) {
-  // This Bitrix24 account runs in "Simple CRM" mode (no separate Leads
-  // entity) — crm.lead.add is blocked on this account type. Instead we
-  // create a Contact first, then a Deal linked to that contact.
+  // Bitrix24 has stopped developing the old crm.contact.add / crm.deal.add
+  // methods — this account only supports the unified crm.item.add method
+  // (entityTypeId: 3 = Contact, 2 = Deal). The old methods return
+  // FEATURE_NOT_AVAILABLE_ON_CURRENT_PLAN.
+  const fm = [];
+  if (lead.phone) fm.push({ typeId: "PHONE", valueType: "WORK", value: lead.phone });
+  if (lead.email) fm.push({ typeId: "EMAIL", valueType: "WORK", value: lead.email });
+
   const contactBody = {
+    entityTypeId: 3,
     fields: {
-      NAME: lead.name,
-      PHONE: lead.phone ? [{ VALUE: lead.phone, VALUE_TYPE: "WORK" }] : [],
-      EMAIL: lead.email ? [{ VALUE: lead.email, VALUE_TYPE: "WORK" }] : [],
+      name: lead.name,
+      fm: fm,
     },
   };
 
-  const contactResponse = await fetch(`${BITRIX24_WEBHOOK_URL}crm.contact.add.json`, {
+  const contactResponse = await fetch(`${BITRIX24_WEBHOOK_URL}crm.item.add.json`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(contactBody),
@@ -116,17 +121,19 @@ async function sendLeadToCrm(lead) {
   if (contactData.error) {
     throw new Error(contactData.error_description || contactData.error);
   }
+  const contactId = contactData.result && contactData.result.item ? contactData.result.item.id : 0;
 
   const dealBody = {
+    entityTypeId: 2,
     fields: {
-      TITLE: `طلب من الموقع - ${lead.course}`,
-      CONTACT_ID: contactData.result || 0,
-      COMMENTS: `الكورس المطلوب: ${lead.course}${lead.message ? "\n\nرسالة الطالب: " + lead.message : ""}`,
-      SOURCE_DESCRIPTION: "Website",
+      title: `طلب من الموقع - ${lead.course}`,
+      contactIds: contactId ? [contactId] : [],
+      comments: `الكورس المطلوب: ${lead.course}${lead.message ? "\n\nرسالة الطالب: " + lead.message : ""}`,
+      sourceDescription: "Website",
     },
   };
 
-  const dealResponse = await fetch(`${BITRIX24_WEBHOOK_URL}crm.deal.add.json`, {
+  const dealResponse = await fetch(`${BITRIX24_WEBHOOK_URL}crm.item.add.json`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dealBody),
