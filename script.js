@@ -96,30 +96,46 @@ function initLeadForm() {
 }
 
 async function sendLeadToCrm(lead) {
-  const url = `${BITRIX24_WEBHOOK_URL}crm.lead.add.json`;
-  const body = {
+  // This Bitrix24 account runs in "Simple CRM" mode (no separate Leads
+  // entity) — crm.lead.add is blocked on this account type. Instead we
+  // create a Contact first, then a Deal linked to that contact.
+  const contactBody = {
     fields: {
-      TITLE: `طلب من الموقع - ${lead.course}`,
       NAME: lead.name,
-      PHONE: [{ VALUE: lead.phone, VALUE_TYPE: "WORK" }],
+      PHONE: lead.phone ? [{ VALUE: lead.phone, VALUE_TYPE: "WORK" }] : [],
       EMAIL: lead.email ? [{ VALUE: lead.email, VALUE_TYPE: "WORK" }] : [],
-      COMMENTS: lead.message || "",
-      SOURCE_DESCRIPTION: "Website",
-      UF_CRM_COURSE: lead.course, // custom field, optional — safe to ignore if not set up in Bitrix24
     },
   };
 
-  const response = await fetch(url, {
+  const contactResponse = await fetch(`${BITRIX24_WEBHOOK_URL}crm.contact.add.json`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    body: JSON.stringify(contactBody),
   });
-
-  const data = await response.json();
-  if (data.error) {
-    throw new Error(data.error_description || data.error);
+  const contactData = await contactResponse.json();
+  if (contactData.error) {
+    throw new Error(contactData.error_description || contactData.error);
   }
-  return data;
+
+  const dealBody = {
+    fields: {
+      TITLE: `طلب من الموقع - ${lead.course}`,
+      CONTACT_ID: contactData.result || 0,
+      COMMENTS: `الكورس المطلوب: ${lead.course}${lead.message ? "\n\nرسالة الطالب: " + lead.message : ""}`,
+      SOURCE_DESCRIPTION: "Website",
+    },
+  };
+
+  const dealResponse = await fetch(`${BITRIX24_WEBHOOK_URL}crm.deal.add.json`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dealBody),
+  });
+  const dealData = await dealResponse.json();
+  if (dealData.error) {
+    throw new Error(dealData.error_description || dealData.error);
+  }
+  return dealData;
 }
 
 function sendLeadViaWhatsApp(lead) {
