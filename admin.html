@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة الإدارة | Neo Academy</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .admin-lecture-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; }
+  .admin-add-lecture-form { display: flex; flex-wrap: wrap; gap: 10px; padding: 14px; border: 1px dashed #aaa; border-radius: 8px; margin-top: 10px; }
+  .admin-add-lecture-form input { padding: 8px; border-radius: 6px; border: 1px solid #ccc; }
+  .save-status { font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="الرئيسية - Neo Academy">
+      <img src="assets/neo-logo.jpg" alt="شعار Neo Academy" class="brand-mark">
+      Neo Academy
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="container" style="padding: 32px 0 60px;">
+
+    <div id="admin-login-wrap" class="gate-wrap">
+      <h2>لوحة الإدارة</h2>
+      <p>سجّلي دخول بإيميل وباسورد الأدمن بتاعك.</p>
+      <form id="admin-login-form">
+        <input type="email" name="email" placeholder="الإيميل" required>
+        <input type="password" name="password" placeholder="الباسورد" required>
+        <button type="submit" class="btn btn-primary">دخول</button>
+        <div id="admin-login-error" class="gate-error"></div>
+      </form>
+    </div>
+
+    <div id="admin-denied-wrap" style="display:none;">
+      <h2>مفيش صلاحية</h2>
+      <p>الحساب ده مش حساب الأدمن. سجّلي خروج وادخلي بحساب الأدمن الصح.</p>
+      <button id="admin-logout-btn-denied" class="btn btn-secondary" onclick="location.reload()">تسجيل خروج</button>
+    </div>
+
+    <div id="admin-panel-wrap" style="display:none;">
+      <div class="section-head">
+        <h2>جدول المحاضرات</h2>
+        <p>عدّلي ميعاد أي محاضرة، أو ضيفي محاضرة جديدة، من غير ما تدخلي Firestore.</p>
+        <button id="admin-logout-btn" class="btn btn-secondary" style="margin-top:8px;">تسجيل خروج</button>
+      </div>
+      <div id="admin-courses-area"></div>
+    </div>
+
+  </div>
+</main>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>
