@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded", () => {
    lead is ever lost.
    ============================================ */
 
-const BITRIX24_WEBHOOK_URL = "https://b24-umaaa0.bitrix24.ae/rest/1/300h6iirxlydxeq8/";
+const BITRIX24_WEBHOOK_URL = "https://b24-umaaa0.bitrix24.ae/rest/1/ksq1iord2n79p9ct/";
 
 function initLeadForm() {
   const form = document.getElementById("lead-form");

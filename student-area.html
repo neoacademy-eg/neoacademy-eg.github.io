@@ -29,39 +29,25 @@
 <main>
   <div class="container">
 
-    <div id="gate-wrap" class="gate-wrap">
+    <div id="login-wrap" class="gate-wrap">
       <h2>منطقة الطلاب</h2>
-      <p>ادخل الكود اللي وصلك من الأكاديمية عشان تشوف محاضراتك.</p>
-      <form id="gate-form">
-        <input type="password" id="access-code" placeholder="كود الدخول" required>
+      <p>سجّلي دخول بالإيميل والباسورد اللي وصلوك من الأكاديمية.</p>
+      <form id="login-form">
+        <input type="email" name="email" placeholder="الإيميل" required>
+        <input type="password" name="password" placeholder="الباسورد" required>
         <button type="submit" class="btn btn-primary">دخول</button>
-        <div id="gate-error" class="gate-error"></div>
+        <div id="login-error" class="gate-error"></div>
       </form>
     </div>
 
-    <div id="student-content" class="student-content" style="padding: 32px 0 60px;">
+    <div id="profile-wrap" class="student-content" style="display:none; padding: 32px 0 60px;">
       <div class="section-head">
-        <h2>محاضراتك</h2>
-        <p>المحاضرات دي متاحة ليك بس، من فضلك متشاركش الرابط أو الكود مع حد تاني.</p>
+        <h2>أهلاً <span id="student-name"></span></h2>
+        <p>المحاضرات دي متاحة ليكي بس، من فضلك متشاركيش بياناتك مع حد تاني.</p>
+        <button id="logout-btn" class="btn btn-secondary" style="margin-top:8px;">تسجيل خروج</button>
       </div>
 
-      <article class="lesson-card">
-        <h3>المحاضرة 1: الترحيب والتعارف</h3>
-        <p class="lesson-note">استبدلي رقم الفيديو (ID) بتاع Vimeo هنا بعد ما ترفعي المحاضرة الحقيقية.</p>
-        <div class="video-frame">
-          <iframe src="https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0"
-                  title="محاضرة 1" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      </article>
-
-      <article class="lesson-card">
-        <h3>المحاضرة 2: الأساسيات</h3>
-        <p class="lesson-note">استبدلي رقم الفيديو (ID) بتاع Vimeo هنا بعد ما ترفعي المحاضرة الحقيقية.</p>
-        <div class="video-frame">
-          <iframe src="https://player.vimeo.com/video/76979871?title=0&byline=0&portrait=0"
-                  title="محاضرة 2" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      </article>
+      <div id="courses-list"></div>
     </div>
 
   </div>
@@ -92,5 +78,6 @@
 </a>
 
 <script src="script.js"></script>
+<script type="module" src="student-auth.js"></script>
 </body>
 </html>
