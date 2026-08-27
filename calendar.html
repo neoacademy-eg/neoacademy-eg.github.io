@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مواعيد المحاضرات | Neo Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .calendar-nav { display: flex; align-items: center; justify-content: space-between; margin: 20px 0; }
+  .calendar-nav button { background: var(--brand-blue, #266F92); color: #fff; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; font-family: inherit; }
+  .calendar-nav h3 { margin: 0; }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+  .calendar-weekday-head { text-align: center; font-weight: 700; font-size: 0.85rem; padding: 6px 0; color: var(--ink-soft, #667); }
+  .calendar-day-cell {
+    aspect-ratio: 1 / 1;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+  .calendar-day-cell.is-empty { border: none; background: transparent; cursor: default; }
+  .calendar-day-cell.is-today { border: 2px solid var(--brand-blue, #266F92); font-weight: 700; }
+  .calendar-day-cell.has-sessions { background: rgba(16, 175, 227, 0.08); }
+  .calendar-day-cell:hover:not(.is-empty) { background: rgba(16, 175, 227, 0.16); }
+  .calendar-day-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-blue, #266F92); }
+
+  #calendar-day-details { padding: 16px; border: 1px solid #ddd; border-radius: 10px; min-height: 60px; }
+  .calendar-session-row { padding: 6px 0; border-bottom: 1px solid #eee; }
+  .calendar-session-row:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="الرئيسية - Neo Academy">
+      <img src="assets/neo-logo.jpg" alt="شعار Neo Academy" class="brand-mark">
+      Neo Academy
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">الرئيسية</a>
+      <a href="courses.html">الكورسات</a>
+      <a href="calendar.html" aria-current="page">مواعيد المحاضرات</a>
+      <a href="student-area.html">منطقة الطلاب</a>
+      <a href="contact.html">تواصل معنا</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container" style="padding: 32px 0 60px;">
+    <div class="section-head">
+      <h2>مواعيد المحاضرات</h2>
+      <p>دوسي على أي يوم فيه علامة زرقاء عشان تشوفي تفاصيل المحاضرة.</p>
+    </div>
+
+    <div class="calendar-nav">
+      <button id="calendar-prev-btn" type="button">‹ الشهر اللي فات</button>
+      <h3 id="calendar-month-label"></h3>
+      <button id="calendar-next-btn" type="button">الشهر الجاي ›</button>
+    </div>
+
+    <div id="calendar-grid" class="calendar-grid"></div>
+    <div id="calendar-day-details"></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <span class="brand">Neo Academy</span>
+    <div class="footer-links">
+      <a href="courses.html">الكورسات</a>
+      <a href="student-area.html">منطقة الطلاب</a>
+      <a href="contact.html">تواصل معنا</a>
+    </div>
+    <div class="footer-meta">
+      <span>24 ش الشهيد مصطفى رياض، متفرع من البطراوي بعباس، أمام جنينة مول — مدينة نصر</span>
+      <a href="https://maps.app.goo.gl/xhikviryJgcuJ6JB6" target="_blank" rel="noopener">افتحي على الخريطة</a>
+      <a href="https://wa.me/201042413201" target="_blank" rel="noopener">01042413201</a>
+      <a href="https://wa.me/201042430075" target="_blank" rel="noopener">01042430075</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/201042413201" class="wa-float" target="_blank" rel="noopener" aria-label="تواصل معنا فورًا على واتساب">
+  <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M16 3C9.4 3 4 8.4 4 15c0 2.4.7 4.6 1.9 6.5L4 29l7.7-1.8C13.4 28 14.7 28.3 16 28.3c6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.2 0-2.4-.2-3.5-.7l-.5-.2-4.6 1.1 1.1-4.5-.3-.5C7.4 18.1 6.7 16.6 6.7 15c0-5.1 4.2-9.3 9.3-9.3s9.3 4.2 9.3 9.3-4.2 9.3-9.3 9.3z"/>
+  </svg>
+  تواصل معنا
+</a>
+
+<script src="script.js"></script>
+<script type="module" src="calendar.js"></script>
+</body>
+</html>
