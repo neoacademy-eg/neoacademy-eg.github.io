@@ -9,40 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-  .calendar-nav { display: flex; align-items: center; justify-content: space-between; margin: 20px 0; }
-  .calendar-nav button { background: var(--brand-blue, #266F92); color: #fff; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; font-family: inherit; }
-  .calendar-nav h3 { margin: 0; }
-
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
-    margin-bottom: 24px;
-  }
-  .calendar-weekday-head { text-align: center; font-weight: 700; font-size: 0.85rem; padding: 6px 0; color: var(--ink-soft, #667); }
-  .calendar-day-cell {
-    aspect-ratio: 1 / 1;
-    border: 1px solid #e2e2e2;
-    border-radius: 8px;
-    background: #fff;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    font-family: inherit;
-    font-size: 0.9rem;
-  }
-  .calendar-day-cell.is-empty { border: none; background: transparent; cursor: default; }
-  .calendar-day-cell.is-today { border: 2px solid var(--brand-blue, #266F92); font-weight: 700; }
-  .calendar-day-cell.has-sessions { background: rgba(16, 175, 227, 0.08); }
-  .calendar-day-cell:hover:not(.is-empty) { background: rgba(16, 175, 227, 0.16); }
-  .calendar-day-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-blue, #266F92); }
-
-  #calendar-day-details { padding: 16px; border: 1px solid #ddd; border-radius: 10px; min-height: 60px; }
-  .calendar-session-row { padding: 6px 0; border-bottom: 1px solid #eee; }
-  .calendar-session-row:last-child { border-bottom: none; }
+  .calendar-session-card { padding: 14px 18px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 10px; }
+  .calendar-session-card.is-past { opacity: 0.5; }
+  .calendar-session-date { font-size: 0.85rem; color: var(--ink-soft, #667); margin-bottom: 4px; }
 </style>
 </head>
 <body>
@@ -67,17 +36,9 @@
   <div class="container" style="padding: 32px 0 60px;">
     <div class="section-head">
       <h2>مواعيد المحاضرات</h2>
-      <p>دوسي على أي يوم فيه علامة زرقاء عشان تشوفي تفاصيل المحاضرة.</p>
+      <p>كل مواعيد المحاضرات في كل الكورسات، محدّثة أول بأول.</p>
     </div>
-
-    <div class="calendar-nav">
-      <button id="calendar-prev-btn" type="button">‹ الشهر اللي فات</button>
-      <h3 id="calendar-month-label"></h3>
-      <button id="calendar-next-btn" type="button">الشهر الجاي ›</button>
-    </div>
-
-    <div id="calendar-grid" class="calendar-grid"></div>
-    <div id="calendar-day-details"></div>
+    <div id="calendar-list"></div>
   </div>
 </main>
 

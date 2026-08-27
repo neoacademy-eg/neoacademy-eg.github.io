@@ -6,127 +6,65 @@ import {
   getDoc,
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-const gridEl = document.getElementById("calendar-grid");
-const monthLabelEl = document.getElementById("calendar-month-label");
-const prevBtn = document.getElementById("calendar-prev-btn");
-const nextBtn = document.getElementById("calendar-next-btn");
-const detailsEl = document.getElementById("calendar-day-details");
+const listEl = document.getElementById("calendar-list");
 
-const WEEKDAY_LABELS = ["أحد", "اتنين", "تلات", "أربع", "خميس", "جمعة", "سبت"];
-const MONTH_LABELS = [
-  "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
-  "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر",
-];
-
-let sessionsByDay = {}; // "YYYY-M-D" -> [ { courseTitle, lectureTitle, date } ]
-let currentMonthDate = new Date();
-currentMonthDate.setDate(1);
-
-function dayKey(date) {
-  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+function formatArabicDate(date) {
+  return date.toLocaleDateString("ar-EG", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
-async function loadAllSessions() {
+function formatArabicTime(date) {
+  return date.toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" });
+}
+
+async function loadCalendar() {
+  listEl.innerHTML = "<p>جاري تحميل المواعيد...</p>";
+
+  // collectionGroup reads the "lectures" sub-collection across ALL courses at once.
   const lecturesSnap = await getDocs(collectionGroup(db, "lectures"));
-  const map = {};
+  const sessions = [];
 
   for (const lectureDoc of lecturesSnap.docs) {
     const lecture = lectureDoc.data();
     if (!lecture.scheduledAt) continue;
 
-    const courseRef = lectureDoc.ref.parent.parent;
+    const courseRef = lectureDoc.ref.parent.parent; // .../courses/{courseId}
     const courseSnap = await getDoc(courseRef);
     const courseTitle = courseSnap.exists() ? courseSnap.data().title : "كورس";
 
     const date = lecture.scheduledAt.toDate ? lecture.scheduledAt.toDate() : new Date(lecture.scheduledAt);
-    const key = dayKey(date);
-    if (!map[key]) map[key] = [];
-    map[key].push({ courseTitle, lectureTitle: lecture.title || "محاضرة", date });
+
+    sessions.push({
+      courseTitle,
+      lectureTitle: lecture.title || "محاضرة",
+      date,
+    });
   }
 
-  for (const key in map) {
-    map[key].sort((a, b) => a.date - b.date);
-  }
-
-  sessionsByDay = map;
-}
-
-function renderMonth() {
-  const year = currentMonthDate.getFullYear();
-  const month = currentMonthDate.getMonth();
-  monthLabelEl.textContent = `${MONTH_LABELS[month]} ${year}`;
-
-  gridEl.innerHTML = "";
-
-  WEEKDAY_LABELS.forEach((label) => {
-    const head = document.createElement("div");
-    head.className = "calendar-weekday-head";
-    head.textContent = label;
-    gridEl.appendChild(head);
-  });
-
-  const firstOfMonth = new Date(year, month, 1);
-  const startOffset = firstOfMonth.getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  const today = new Date();
-  const todayKey = dayKey(today);
-
-  for (let i = 0; i < startOffset; i++) {
-    const blank = document.createElement("div");
-    blank.className = "calendar-day-cell is-empty";
-    gridEl.appendChild(blank);
-  }
-
-  for (let dayNum = 1; dayNum <= daysInMonth; dayNum++) {
-    const cellDate = new Date(year, month, dayNum);
-    const key = dayKey(cellDate);
-    const daySessions = sessionsByDay[key] || [];
-
-    const cell = document.createElement("button");
-    cell.type = "button";
-    cell.className = "calendar-day-cell" + (key === todayKey ? " is-today" : "") + (daySessions.length ? " has-sessions" : "");
-    cell.innerHTML = `
-      <span class="calendar-day-num">${dayNum}</span>
-      ${daySessions.length ? `<span class="calendar-day-dot"></span>` : ""}
-    `;
-    cell.addEventListener("click", () => showDayDetails(cellDate, daySessions));
-    gridEl.appendChild(cell);
-  }
-}
-
-function showDayDetails(date, sessions) {
-  const dateLabel = date.toLocaleDateString("ar-EG", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+  sessions.sort((a, b) => a.date - b.date);
 
   if (sessions.length === 0) {
-    detailsEl.innerHTML = `<h4>${dateLabel}</h4><p>مفيش محاضرات في اليوم ده.</p>`;
+    listEl.innerHTML = "<p>مفيش مواعيد متاحة دلوقتي.</p>";
     return;
   }
 
-  const rows = sessions.map((s) => {
-    const time = s.date.toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" });
-    return `<div class="calendar-session-row"><strong>${time}</strong> — ${s.courseTitle}: ${s.lectureTitle}</div>`;
-  }).join("");
+  const now = new Date();
+  listEl.innerHTML = "";
 
-  detailsEl.innerHTML = `<h4>${dateLabel}</h4>${rows}`;
+  sessions.forEach((session) => {
+    const isPast = session.date < now;
+    const card = document.createElement("article");
+    card.className = "calendar-session-card" + (isPast ? " is-past" : "");
+    card.innerHTML = `
+      <div class="calendar-session-date">${formatArabicDate(session.date)} — ${formatArabicTime(session.date)}</div>
+      <div class="calendar-session-title"><strong>${session.courseTitle}</strong>: ${session.lectureTitle}</div>
+    `;
+    listEl.appendChild(card);
+  });
 }
 
-prevBtn.addEventListener("click", () => {
-  currentMonthDate.setMonth(currentMonthDate.getMonth() - 1);
-  renderMonth();
-  detailsEl.innerHTML = "";
-});
-
-nextBtn.addEventListener("click", () => {
-  currentMonthDate.setMonth(currentMonthDate.getMonth() + 1);
-  renderMonth();
-  detailsEl.innerHTML = "";
-});
-
-async function init() {
-  gridEl.innerHTML = "<p>جاري تحميل المواعيد...</p>";
-  await loadAllSessions();
-  renderMonth();
-}
-
-init();
+loadCalendar();
